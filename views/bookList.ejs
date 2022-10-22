@@ -21,6 +21,7 @@
         <th>Author</th>
         <th>Genre</td>
         <th>Delete Book</td>
+        <th>Update Book</td>
     </tr>
 
 
@@ -29,7 +30,8 @@
             <td><%=books[i].name%></td>
             <td><%=books[i].author%></td>
             <td><%=books[i].genre%></td>
-            <td> <a class="btn" href="book-list/delete/<%=books[i].id%>">Delete</a></td>
+            <td> <a href="book-list/delete/<%=books[i].id%>">Delete</a></td>
+            <td> <a href="updateBook/<%=books[i].id%>">Update</a> </td>
         </tr>
     <%}%>
 </table>

@@ -50,4 +50,35 @@ const deleteBook = (req, res) =>{
   })
 }
 
-module.exports = { getBookList, getBook, postBook, deleteBook };
+
+
+const getUpdateBook = async (req, res) => {
+  try {
+    const post = await bookModel.findById(req.params.id);
+    console.log(req.params.id);
+    res.render("updateBook", { book: post });
+  } catch (err) {
+    res.json({ message: err });
+  }
+}
+
+const updateBook = (req,res) => {
+  updateId = req.params.id
+  bookModel.findByIdAndUpdate(updateId,{
+      name: req.body.name,
+      author: req.body.author,
+      genre: req.body.genre
+  },(err)=>{
+      if (err){
+          console.log(err)
+      }
+      else{
+          res.redirect("/book-list")
+      }
+  })
+}
+
+
+
+module.exports = { getBookList, getBook, postBook, deleteBook, updateBook, getUpdateBook };
+
