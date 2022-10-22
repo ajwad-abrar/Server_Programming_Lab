@@ -8,7 +8,7 @@ const getBookList = async (req, res) => {
     data = await bookModel.find();
     console.log(data);
     data.forEach((book) => {
-      books.push({ name: book.name, author: book.author, genre: book.genre });
+      books.push({ id: book.id, name: book.name, author: book.author, genre: book.genre });
     });
   } catch (error) {
     console.log(error);
@@ -40,4 +40,14 @@ const postBook = (req, res) => {
     });
 };
 
-module.exports = { getBookList, getBook, postBook };
+
+const deleteBook = (req, res) =>{
+  const bookID = req.params.id
+  bookModel.findOneAndDelete({_id : bookID}).then(()=>{
+      console.log("Delete id:" + bookID)
+  }).catch((error)=>{console.log(error)}).finally(()=>{
+      res.redirect("/book-list")
+  })
+}
+
+module.exports = { getBookList, getBook, postBook, deleteBook };
