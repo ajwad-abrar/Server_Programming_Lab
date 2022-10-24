@@ -1,29 +1,19 @@
-require("dotenv").config();
-const bodyParser = require("body-parser");
-const express = require("express");
-const mongoose = require("mongoose");
-const router = require("./routes");
+const express = require('express');
+const bodyParser = require("body-parser"); 
 const app = express();
+const router = require("./router");
 const port = 3000;
 
-const database_url = process.env.DATABASE_URL;
-
-mongoose
-  .connect(database_url)
-  .then(() => {
-    console.log("Database connected!");
-  })
-  .catch(() => {
-    console.log("Could not connect to database!");
-  });
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
-app.set("view engine", "ejs");
-app.set("views", __dirname + "/views");
 
-app.use(router);
-app.listen(port, () => {
-  console.log(`App is running at https://localhost:${port}`);
+app.set("view engine", "ejs"); // Setting EJS as template engine
+
+app.set("views", __dirname + "/views"); // Setting the directory for the view files
+
+app.use(router); // Router Middleware
+
+app.listen(port, function () {
+  //starts up the server on a specified port ('3000')
+  console.log(`App listening on port ${port}!`);
 });
